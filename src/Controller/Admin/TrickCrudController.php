@@ -26,7 +26,7 @@ class TrickCrudController extends AbstractCrudController
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
             TextField::new('subtitle'),
-            ImageField::new('illustration')->setUploadDir('public/uploads'),
+            ImageField::new('illustration')->setBasePath('public/uploads')->setUploadDir('public/uploads'),
             TextEditorField::new('description'),
             AssociationField::new('category')
         ];
