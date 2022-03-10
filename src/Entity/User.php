@@ -46,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Comment::class, mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $comment;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +160,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(Comment $comment): self
+    {
+        // set the owning side of the relation if necessary
+        if ($comment->getAuthor() !== $this) {
+            $comment->setAuthor($this);
+        }
+
+        $this->comment = $comment;
 
         return $this;
     }

@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="projet6oc">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.32">
-    <root id="1"/>
+    <root id="1">
+      <DefaultCasing>lower/lower</DefaultCasing>
+      <DefaultEngine>MyISAM</DefaultEngine>
+      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+      <Grants>|root||root|localhost|ALTER|G
+|root||root|localhost|ALTER ROUTINE|G
+|root||root|localhost|CREATE|G
+|root||root|localhost|CREATE ROUTINE|G
+|root||root|localhost|CREATE TABLESPACE|G
+|root||root|localhost|CREATE TEMPORARY TABLES|G
+|root||root|localhost|CREATE USER|G
+|root||root|localhost|CREATE VIEW|G
+|root||root|localhost|DELETE|G
+|root||root|localhost|DROP|G
+|root||root|localhost|EVENT|G
+|root||root|localhost|EXECUTE|G
+|root||root|localhost|FILE|G
+|root||root|localhost|INDEX|G
+|root||root|localhost|INSERT|G
+|root||root|localhost|LOCK TABLES|G
+|root||root|localhost|PROCESS|G
+|root||root|localhost|REFERENCES|G
+|root||root|localhost|RELOAD|G
+|root||root|localhost|REPLICATION CLIENT|G
+|root||root|localhost|REPLICATION SLAVE|G
+|root||root|localhost|SELECT|G
+|root||root|localhost|SHOW DATABASES|G
+|root||root|localhost|SHOW VIEW|G
+|root||root|localhost|SHUTDOWN|G
+|root||mysql.session|localhost|SUPER|G
+|root||root|localhost|SUPER|G
+|root||root|localhost|TRIGGER|G
+|root||root|localhost|UPDATE|G
+|root||root|localhost|grant option|G
+performance_schema|schema||mysql.session|localhost|SELECT|G
+sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
+      <ServerVersion>5.7.31</ServerVersion>
+    </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
     </collation>
@@ -780,144 +817,189 @@
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="247" parent="235" name="doctrine_migration_versions">
+    <table id="247" parent="235" name="comment">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_unicode_ci</CollationName>
+    </table>
+    <table id="248" parent="235" name="doctrine_migration_versions">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_unicode_ci</CollationName>
     </table>
-    <table id="248" parent="235" name="trick">
+    <table id="249" parent="235" name="trick">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <table id="249" parent="235" name="user">
+    <table id="250" parent="235" name="user">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_unicode_ci</CollationName>
     </table>
-    <column id="250" parent="246" name="id">
+    <column id="251" parent="246" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="251" parent="246" name="name">
+    <column id="252" parent="246" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="252" parent="246" name="PRIMARY">
+    <key id="253" parent="246" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="253" parent="247" name="version">
+    <column id="254" parent="247" name="id">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="255" parent="247" name="author_id">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="256" parent="247" name="created_at">
+      <Comment>(DC2Type:datetime_immutable)</Comment>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="257" parent="247" name="comment">
+      <DataType>longtext|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="258" parent="247" name="FK_9474526CF675F31B">
+      <ColNames>author_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>user</RefTableName>
+    </foreign-key>
+    <index id="259" parent="247" name="UNIQ_9474526CF675F31B">
+      <ColNames>author_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="260" parent="247" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <key id="261" parent="247" name="UNIQ_9474526CF675F31B">
+      <ColNames>author_id</ColNames>
+      <UnderlyingIndexName>UNIQ_9474526CF675F31B</UnderlyingIndexName>
+    </key>
+    <column id="262" parent="248" name="version">
       <DataType>varchar(191)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="254" parent="247" name="executed_at">
+    <column id="263" parent="248" name="executed_at">
       <DataType>datetime|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="255" parent="247" name="execution_time">
+    <column id="264" parent="248" name="execution_time">
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <key id="256" parent="247" name="PRIMARY">
+    <key id="265" parent="248" name="PRIMARY">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="257" parent="248" name="id">
+    <column id="266" parent="249" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="258" parent="248" name="category_id">
+    <column id="267" parent="249" name="category_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="259" parent="248" name="name">
+    <column id="268" parent="249" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="260" parent="248" name="slug">
+    <column id="269" parent="249" name="slug">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="261" parent="248" name="illustration">
+    <column id="270" parent="249" name="illustration">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="262" parent="248" name="subtitle">
+    <column id="271" parent="249" name="subtitle">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="263" parent="248" name="description">
+    <column id="272" parent="249" name="description">
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <foreign-key id="264" parent="248" name="FK_D8F0A91E12469DE2">
+    <foreign-key id="273" parent="249" name="FK_D8F0A91E12469DE2">
       <ColNames>category_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>category</RefTableName>
     </foreign-key>
-    <index id="265" parent="248" name="IDX_D8F0A91E12469DE2">
+    <index id="274" parent="249" name="IDX_D8F0A91E12469DE2">
       <ColNames>category_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="266" parent="248" name="PRIMARY">
+    <key id="275" parent="249" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="267" parent="249" name="id">
+    <column id="276" parent="250" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="268" parent="249" name="email">
+    <column id="277" parent="250" name="email">
       <DataType>varchar(180)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="269" parent="249" name="roles">
+    <column id="278" parent="250" name="roles">
       <DataType>json|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="270" parent="249" name="password">
+    <column id="279" parent="250" name="password">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="271" parent="249" name="firstname">
+    <column id="280" parent="250" name="firstname">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="272" parent="249" name="lastname">
+    <column id="281" parent="250" name="lastname">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="273" parent="249" name="UNIQ_8D93D649E7927C74">
+    <index id="282" parent="250" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="274" parent="249" name="PRIMARY">
+    <key id="283" parent="250" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="275" parent="249" name="UNIQ_8D93D649E7927C74">
+    <key id="284" parent="250" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>UNIQ_8D93D649E7927C74</UnderlyingIndexName>
     </key>
