@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ trick.name }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col">
+
+            <h1>{{ trick.name }}</h1>
+            <h2>{{ trick.subtitle }}</h2>
+
+            <img class="img-fluid" src="../uploads/{{ trick.illustration }}" alt="{{ trick.name }}">
+
+            <p>{{ trick.description | raw  }}</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}
