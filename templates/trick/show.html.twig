@@ -6,15 +6,54 @@
 
     <div class="row">
 
-        <div class="col">
-
-            <h1>{{ trick.name }}</h1>
-            <h2>{{ trick.subtitle }}</h2>
-
-            <img class="img-fluid" src="../uploads/{{ trick.illustration }}" alt="{{ trick.name }}">
-
-            <p>{{ trick.description | raw  }}</p>
+        <div class="col-md-6">
+            <img class="img-fluid rounded" src="../uploads/{{ trick.illustration }}" alt="{{ trick.name }}">
         </div>
+
+        <div class="offset-md-1 col-md-5">
+
+            <h1 class="text-info font-weight-bold text-uppercase">{{ trick.name }}  </h1>
+            <h2 class="text-info ">{{ trick.subtitle }}</h2>
+            <hr>
+            <p>Catégorie : {{ trick.category }}</p>
+            <hr>
+
+            <p>{{ trick.description | raw }}</p>
+        </div>
+
+
+    </div>
+    <section id="comments" class="bg-gray my-5 p-5 rounded">
+
+    <div class="container">
+
+        <div class="row pb-5">
+            <div class="col">
+                <h2 class="text-info">Commentaires</h2>
+            </div>
+        </div>
+
+
+        {% for comment in trick.comments %}
+
+            <div class="comment">
+
+                <div class="row">
+                    <div class="col-3">
+                        Rédigé par {{ comment.author.firstname }} {{ comment.author.lastname }} <br/> le {{ comment.createdAt | date('d/m/Y à H:i') }}
+                    </div>
+
+                    <div class="col">
+                        {{ comment.content | raw }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
 
     </div>
 

@@ -871,135 +871,171 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="258" parent="247" name="FK_9474526CF675F31B">
+    <column id="258" parent="247" name="trick_id">
+      <DataType>int(11)|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="259" parent="247" name="FK_9474526CF675F31B">
       <ColNames>author_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="259" parent="247" name="UNIQ_9474526CF675F31B">
+    <foreign-key id="260" parent="247" name="FK_9474526CB281BE2E">
+      <ColNames>trick_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>trick</RefTableName>
+    </foreign-key>
+    <index id="261" parent="247" name="UNIQ_9474526CF675F31B">
       <ColNames>author_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="260" parent="247" name="PRIMARY">
+    <index id="262" parent="247" name="UNIQ_9474526CB281BE2E">
+      <ColNames>trick_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="263" parent="247" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="261" parent="247" name="UNIQ_9474526CF675F31B">
+    <key id="264" parent="247" name="UNIQ_9474526CF675F31B">
       <ColNames>author_id</ColNames>
       <UnderlyingIndexName>UNIQ_9474526CF675F31B</UnderlyingIndexName>
     </key>
-    <column id="262" parent="248" name="version">
+    <key id="265" parent="247" name="UNIQ_9474526CB281BE2E">
+      <ColNames>trick_id</ColNames>
+      <UnderlyingIndexName>UNIQ_9474526CB281BE2E</UnderlyingIndexName>
+    </key>
+    <column id="266" parent="248" name="version">
       <DataType>varchar(191)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="263" parent="248" name="executed_at">
+    <column id="267" parent="248" name="executed_at">
       <DataType>datetime|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="264" parent="248" name="execution_time">
+    <column id="268" parent="248" name="execution_time">
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <key id="265" parent="248" name="PRIMARY">
+    <key id="269" parent="248" name="PRIMARY">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="266" parent="249" name="id">
+    <column id="270" parent="249" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="267" parent="249" name="category_id">
+    <column id="271" parent="249" name="category_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="268" parent="249" name="name">
+    <column id="272" parent="249" name="name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="269" parent="249" name="slug">
+    <column id="273" parent="249" name="slug">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="270" parent="249" name="illustration">
+    <column id="274" parent="249" name="illustration">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="271" parent="249" name="subtitle">
+    <column id="275" parent="249" name="subtitle">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="272" parent="249" name="description">
+    <column id="276" parent="249" name="description">
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <foreign-key id="273" parent="249" name="FK_D8F0A91E12469DE2">
+    <column id="277" parent="249" name="comment_id">
+      <DataType>int(11)|0s</DataType>
+      <Position>8</Position>
+    </column>
+    <foreign-key id="278" parent="249" name="FK_D8F0A91E12469DE2">
       <ColNames>category_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>category</RefTableName>
     </foreign-key>
-    <index id="274" parent="249" name="IDX_D8F0A91E12469DE2">
+    <foreign-key id="279" parent="249" name="FK_D8F0A91EF8697D13">
+      <ColNames>comment_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>comment</RefTableName>
+    </foreign-key>
+    <index id="280" parent="249" name="UNIQ_D8F0A91EF8697D13">
+      <ColNames>comment_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="281" parent="249" name="IDX_D8F0A91E12469DE2">
       <ColNames>category_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="275" parent="249" name="PRIMARY">
+    <key id="282" parent="249" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="276" parent="250" name="id">
+    <key id="283" parent="249" name="UNIQ_D8F0A91EF8697D13">
+      <ColNames>comment_id</ColNames>
+      <UnderlyingIndexName>UNIQ_D8F0A91EF8697D13</UnderlyingIndexName>
+    </key>
+    <column id="284" parent="250" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="277" parent="250" name="email">
+    <column id="285" parent="250" name="email">
       <DataType>varchar(180)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="278" parent="250" name="roles">
+    <column id="286" parent="250" name="roles">
       <DataType>json|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="279" parent="250" name="password">
+    <column id="287" parent="250" name="password">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="280" parent="250" name="firstname">
+    <column id="288" parent="250" name="firstname">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="281" parent="250" name="lastname">
+    <column id="289" parent="250" name="lastname">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="282" parent="250" name="UNIQ_8D93D649E7927C74">
+    <index id="290" parent="250" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="283" parent="250" name="PRIMARY">
+    <key id="291" parent="250" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="284" parent="250" name="UNIQ_8D93D649E7927C74">
+    <key id="292" parent="250" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>UNIQ_8D93D649E7927C74</UnderlyingIndexName>
     </key>

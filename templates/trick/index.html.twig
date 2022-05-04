@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h1>Ours Tricks</h1>
+    <h1>Les astuces</h1>
 
     <div class="row">
 
@@ -19,12 +19,12 @@
                     </a>
                     <div class="card-header">
                         <div>
-                            <a href="{{ path('trick', { 'slug' : trick.slug }) }}"><h2 class="text-uppercase small">{{ trick.name }}</h2></a>
+                            <a href="{{ path('trick', { 'slug' : trick.slug }) }}"><h2 class="text-uppercase">{{ trick.name }}</h2></a>
                             <a href="#"><h3 class="small">{{ trick.subtitle }}</h3></a>
                         </div>
                         <div class="small">
-                            <a href="#" class="card-link">Modify</a>
-                            <a href="#" class="card-link">Delete</a>
+                            <a href="#" class="card-link">Modifier</a>
+                            <a href="#" class="card-link">Supprimer</a>
                         </div>
                     </div>
 

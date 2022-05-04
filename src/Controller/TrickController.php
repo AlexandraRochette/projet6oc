@@ -34,7 +34,9 @@ class TrickController extends AbstractController
      */
     public function show($slug): Response
     {
-        $trick = $this->entitymanager->getRepository(Trick::class)->findOneBySlug($slug);
+        $trick = $this->entitymanager->getRepository(Trick::class)->findOneBy(['slug' => $slug]);
+
+        //dd($trick);
 
         if(!$trick) {
             return $this->redirectToRoute('tricks');
@@ -44,4 +46,5 @@ class TrickController extends AbstractController
             'trick' => $trick,
         ]);
     }
+
 }

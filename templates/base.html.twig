@@ -11,6 +11,8 @@
     <!-- Bootstrap core CSS -->
 
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">
+
 
     <!-- Custom CSS -->
 
@@ -53,9 +55,24 @@
                 </li>
             </ul>
             {% if app.user %}
-                <a href="{{ path('account') }}">Mon compte</a> | <a href="{{ path('app_logout') }}">Déconnexion</a>
+                <div class="mr-2">
+                    <a class="btn btn-info text-uppercase font-weight-bold" href="{{ path('account') }}">Mon compte</a>
+                </div>
+                <div>
+                    <a class="btn btn-danger text-uppercase font-weight-bold"
+                       href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
             {% else %}
-                <a href="{{ path('app_login') }}">Connexion</a> | <a href="{{ path('register') }}">Inscription</a>
+                <div class="mr-2">
+                    <a class="btn btn-info text-uppercase font-weight-bold"
+                       href="{{ path('app_login') }}">Connexion</a>
+                </div>
+                <div>
+                    <a class="btn btn-danger text-uppercase font-weight-bold"
+                       href="{{ path('register') }}">Inscription</a>
+                </div>
+
+
             {% endif %}
         </div>
     </nav>
@@ -72,44 +89,35 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                        <rect width="100%" height="100%" fill="#777"/>
-                    </svg>
+                    <img class="img-fluid" src="{{ asset('images/banner-hp-snowtricks.jpg') }}">
                     <div class="container">
                         <div class="carousel-caption text-left">
-                            <h1>Example headline.</h1>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                            <h1>Discover the best snowboard tips</h1>
+                            <p>Join the most active community of snowboarders in France</p>
+                            <p><a class="btn btn-lg btn-primary" href="{{ path('register') }}" role="button">Sign up
+                                    today</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                        <rect width="100%" height="100%" fill="#777"/>
-                    </svg>
+                    <img class="img-fluid" src="{{ asset('images/banner-hp-snowtricks2.jpg') }}">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                            <h1>Want to become a snowboarding ace</h1>
+                            <p>A little theory can't hurt!</p>
+                            <p><a class="btn btn-lg btn-primary" href="{{ path('tricks') }}" role="button">Learn
+                                    more</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                         preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-                        <rect width="100%" height="100%" fill="#777"/>
-                    </svg>
+                    <img class="img-fluid" src="{{ asset('images/banner-hp-snowtricks3.jpg') }}">
                     <div class="container">
                         <div class="carousel-caption text-right">
-                            <h1>One more for good measure.</h1>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                            <h1>The latest published tip</h1>
+                            <p>Never miss a tip again!</p>
+                            <p><a class="btn btn-lg btn-primary" href="{{ path('trick',{'slug' : last.slug}) }}"
+                                  role="button">Read the last tip</a></p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +150,7 @@
     <hr>
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2020 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2022 Projet 6 OpenClassRooms - Formation Développement d'application PHP/Symfony - Alexandra Rochette &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
