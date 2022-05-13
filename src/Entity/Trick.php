@@ -6,9 +6,12 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @Vich\Uploadable
  */
 class Trick
 {
@@ -31,6 +34,8 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Vich\UploadableField(mapping="uploads", fileNameProperty="illustration")
+     * @var File
      */
     private $illustration;
 
@@ -54,6 +59,11 @@ class Trick
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="tricks", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Medias::class, mappedBy="trick", cascade={"persist", "remove"})
+     */
+    private $medias;
 
     public function __construct()
     {
@@ -163,6 +173,23 @@ class Trick
                 $comment->setTricks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMedias(): ?Medias
+    {
+        return $this->medias;
+    }
+
+    public function setMedias(Medias $medias): self
+    {
+        // set the owning side of the relation if necessary
+        if ($medias->getTrick() !== $this) {
+            $medias->setTrick($this);
+        }
+
+        $this->medias = $medias;
 
         return $this;
     }

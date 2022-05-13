@@ -25,7 +25,28 @@
     </div>
     <section id="comments" class="bg-gray my-5 p-5 rounded">
 
-    <div class="container">
+    <div class="container border-bottom pb-5">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-info">Laisser un commentaire</h2>
+
+                {{ form_start(formComment) }}
+
+                    {{ form_row(formComment.content) }}
+
+                <button type="submit" class="btn btn-primary text-uppercase my-5">
+
+                    Ajouter un commentaire
+
+                </button>
+
+                {{ form_end(formComment) }}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
 
         <div class="row pb-5">
             <div class="col">
@@ -40,7 +61,8 @@
 
                 <div class="row">
                     <div class="col-3">
-                        Rédigé par {{ comment.author.firstname }} {{ comment.author.lastname }} <br/> le {{ comment.createdAt | date('d/m/Y à H:i') }}
+                        Rédigé par {{ comment.author.firstname }} {{ comment.author.lastname }} <br/>
+                        le {{ comment.createdAt | date('d/m/Y à H:i') }}
                     </div>
 
                     <div class="col">

@@ -18,10 +18,15 @@ class Comment
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="comment", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(name="author",nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -29,9 +34,10 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
+     * @ORM\JoinColumn(name="tricks",nullable=false)
      */
-    private $comment;
+    private $tricks;
 
     public function getId(): ?int
     {
@@ -43,9 +49,21 @@ class Comment
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }
@@ -62,15 +80,16 @@ class Comment
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getTricks(): ?Trick
     {
-        return $this->comment;
+        return $this->tricks;
     }
 
-    public function setComment(string $comment): self
+    public function setTricks(?Trick $tricks): self
     {
-        $this->comment = $comment;
+        $this->tricks = $tricks;
 
         return $this;
     }
+
 }

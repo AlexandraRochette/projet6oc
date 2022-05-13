@@ -27,10 +27,10 @@ class TrickCrudController extends AbstractCrudController
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
             TextField::new('subtitle'),
-            //ImageField::new('illustration')->setBasePath('uploads/')->setUploadDir('public/uploads/')->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
+            ImageField::new('illustration')->setBasePath('uploads/')->setUploadDir('public/uploads/')->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             TextEditorField::new('description'),
             AssociationField::new('category'),
-            CollectionField::new('illustration')->allowAdd(false)
+            //CollectionField::new('medias')->allowAdd(true)->setEntryIsComplex('name')
         ];
     }
 

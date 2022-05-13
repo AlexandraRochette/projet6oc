@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Entity\User;
+use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
 
-    private $entitymanager;
+    private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager) {
-        $this->entitymanager = $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -22,7 +27,7 @@ class TrickController extends AbstractController
      */
     public function index(): Response
     {
-        $tricks = $this->entitymanager->getRepository(Trick::class)->findAll();
+        $tricks = $this->entityManager->getRepository(Trick::class)->findAll();
 
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks,
@@ -32,18 +37,49 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/{slug}", name="trick")
      */
-    public function show($slug): Response
+    public function show($slug, Request $request): Response
     {
-        $trick = $this->entitymanager->getRepository(Trick::class)->findOneBy(['slug' => $slug]);
+        $trick = $this->entityManager->getRepository(Trick::class)->findOneBy(['slug' => $slug]);
+        $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => 1]);
+        $notification = null;
 
-        //dd($trick);
+        $comment = new Comment();
 
-        if(!$trick) {
+        $form = $this->createForm(CommentType::class, $comment);
+
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$comment->getId()) {
+                $comment->setCreatedAt(new \DateTimeImmutable());
+                $comment->setTricks($trick);
+                $comment->setAuthor($author);
+                //dd($form);
+            }
+
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+
+            $notification = 'Votre commentaire a bien été enregistré';
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+
+            return $this->render('trick/show.html.twig', [
+                'trick' => $trick,
+                'formComment' => $form->createView()
+            ]);
+        }
+
+        if (!$trick) {
             return $this->redirectToRoute('tricks');
         }
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'formComment' => $form->createView()
         ]);
     }
 
