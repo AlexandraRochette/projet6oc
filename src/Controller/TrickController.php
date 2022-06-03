@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\TrickType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +40,8 @@ class TrickController extends AbstractController
     public function show($slug, Request $request): Response
     {
         $trick = $this->entityManager->getRepository(Trick::class)->findOneBy(['slug' => $slug]);
-        $author = $this->entityManager->getRepository(User::class)->findOneBy(['id' => 1]);
+        $author = $this->getUser();
+
         $notification = null;
 
         $comment = new Comment();
@@ -69,7 +70,8 @@ class TrickController extends AbstractController
 
             return $this->render('trick/show.html.twig', [
                 'trick' => $trick,
-                'formComment' => $form->createView()
+                'formComment' => $form->createView(),
+                'author' => $author
             ]);
         }
 
@@ -82,5 +84,8 @@ class TrickController extends AbstractController
             'formComment' => $form->createView()
         ]);
     }
+
+
+
 
 }

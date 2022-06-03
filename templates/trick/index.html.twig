@@ -22,10 +22,16 @@
                             <a href="{{ path('trick', { 'slug' : trick.slug }) }}"><h2 class="text-uppercase">{{ trick.name }}</h2></a>
                             <a href="#"><h3 class="small">{{ trick.subtitle }}</h3></a>
                         </div>
+
+                        {% if app.user %}
+
                         <div class="small">
-                            <a href="#" class="card-link">Modifier</a>
+                            <a href="" class="card-link">Modifier</a>
                             <a href="#" class="card-link">Supprimer</a>
                         </div>
+
+                        {% endif %}
+
                     </div>
 
                 </div>

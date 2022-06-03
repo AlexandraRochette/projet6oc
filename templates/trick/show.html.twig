@@ -7,15 +7,21 @@
     <div class="row">
 
         <div class="col-md-6">
-            <img class="img-fluid rounded" src="../uploads/{{ trick.illustration }}" alt="{{ trick.name }}">
+{#            <img class="img-fluid rounded" src="../uploads/{{ trick.illustration }}" alt="{{ trick.name }}">#}
         </div>
 
         <div class="offset-md-1 col-md-5">
 
             <h1 class="text-info font-weight-bold text-uppercase">{{ trick.name }}  </h1>
+            {% if app.user.getId == trick.author.id or is_granted('ROLE_ADMIN') %}
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController').setAction('edit').setEntityId(trick.id) }}">Modifier le trick</a>
+            {% endif %}
             <h2 class="text-info ">{{ trick.subtitle }}</h2>
             <hr>
             <p>Catégorie : {{ trick.category }}</p>
+            <p>Rédigé par : {{ trick.author.firstname }} {{ trick.author.lastname }}</p>
+            <p>Date de rédaction : {{ trick.createdAt | date('d/m/Y à H:i') }}</p>
+            <p>Dernières modifications le : {{ trick.modifyAt | date('d/m/Y à H:i') }}</p>
             <hr>
 
             <p>{{ trick.description | raw }}</p>
@@ -29,18 +35,28 @@
         <div class="row">
             <div class="col">
                 <h2 class="text-info">Laisser un commentaire</h2>
+                {% if app.user %}
 
-                {{ form_start(formComment) }}
+                    {{ form_start(formComment) }}
 
                     {{ form_row(formComment.content) }}
 
-                <button type="submit" class="btn btn-primary text-uppercase my-5">
+                    <button type="submit" class="btn btn-primary text-uppercase my-5">
 
-                    Ajouter un commentaire
+                        Ajouter un commentaire
 
-                </button>
+                    </button>
 
-                {{ form_end(formComment) }}
+                    {{ form_end(formComment) }}
+
+                {% else %}
+
+                    <p>Vous devez vous connecter pour laisser un commentaire</p>
+
+                    <a class="btn btn-info text-uppercase font-weight-bold"
+                       href="{{ path('app_login') }}">Connexion</a>
+
+                {% endif %}
 
             </div>
         </div>

@@ -34,13 +34,6 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Vich\UploadableField(mapping="uploads", fileNameProperty="illustration")
-     * @var File
-     */
-    private $illustration;
-
-    /**
-     * @ORM\Column(type="string", length=255)
      */
     private $subtitle;
 
@@ -64,6 +57,22 @@ class Trick
      * @ORM\OneToOne(targetEntity=Medias::class, mappedBy="trick", cascade={"persist", "remove"})
      */
     private $medias;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $modifyAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     public function __construct()
     {
@@ -95,18 +104,6 @@ class Trick
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getIllustration(): ?string
-    {
-        return $this->illustration;
-    }
-
-    public function setIllustration(string $illustration): self
-    {
-        $this->illustration = $illustration;
 
         return $this;
     }
@@ -190,6 +187,42 @@ class Trick
         }
 
         $this->medias = $medias;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifyAt(): ?\DateTimeImmutable
+    {
+        return $this->modifyAt;
+    }
+
+    public function setModifyAt(\DateTimeImmutable $modifyAt): self
+    {
+        $this->modifyAt = $modifyAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

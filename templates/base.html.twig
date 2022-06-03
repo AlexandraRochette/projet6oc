@@ -55,8 +55,18 @@
                 </li>
             </ul>
             {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="mr-2">
+                        <a class="btn btn-info text-uppercase font-weight-bold" href="{{ path('admin') }}">Gérer le
+                            site</a>
+                    </div>
+                {% endif %}
                 <div class="mr-2">
-                    <a class="btn btn-info text-uppercase font-weight-bold" href="{{ path('account') }}">Mon compte</a>
+                    <a class="btn btn-success text-uppercase font-weight-bold" href="{{ path('account') }}">Gérer mon
+                        profil utilisateur</a>
+                </div>
+                <div class="mr-2">
+                    <a class="btn btn-success text-uppercase font-weight-bold" href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController').setAction('new') }}">Ajouter un nouveau trick</a>
                 </div>
                 <div>
                     <a class="btn btn-danger text-uppercase font-weight-bold"
@@ -150,7 +160,8 @@
     <hr>
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2022 Projet 6 OpenClassRooms - Formation Développement d'application PHP/Symfony - Alexandra Rochette &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2022 Projet 6 OpenClassRooms - Formation Développement d'application PHP/Symfony - Alexandra Rochette
+            &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

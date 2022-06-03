@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\MediasRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=MediasRepository::class)
@@ -22,10 +24,6 @@ class Medias
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,18 +49,6 @@ class Medias
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
