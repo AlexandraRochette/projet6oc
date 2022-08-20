@@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $images;
+
+    /**
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author")
      */
     private $tricks;
@@ -62,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
 
@@ -240,5 +246,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImages(Image $images): self
+    {
+        if (!$this->images->contains($images)) {
+            $this->images[] = $image;
+            $image->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAuthor() === $this) {
+                $image->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString():string {
+        return $this->getFullName();
     }
 }

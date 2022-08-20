@@ -3,10 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trick;
-use App\Form\MediasType;
-use App\Form\TrickType;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use App\Form\TrickImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -36,18 +33,21 @@ class TrickCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
+            TextField::new('name')->setLabel('Titre'),
             SlugField::new('slug')->setTargetFieldName('name'),
-            TextField::new('subtitle'),
-            //ImageField::new('illustration')->setBasePath('uploads/')->setUploadDir('public/uploads/')->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
+            TextField::new('subtitle')->setLabel('Sous-titre'),
+            ImageField::new('illustration')->setLabel('Image à la Une')->setBasePath('uploads/')->setUploadDir('public/uploads/')->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             TextEditorField::new('description'),
-            AssociationField::new('category'),
-            CollectionField::new('medias')->allowAdd(true)->setEntryType(MediasType::class)->setRequired(false)->onlyOnForms()
+            AssociationField::new('category')->setLabel('Catégorie'),
+            CollectionField::new('images')->renderExpanded()->allowAdd(true)->setEntryType(TrickImageType::class)->setRequired(false)->onlyOnForms()->setLabel('Images'),
+            TextAreaField::new('video')->setLabel('Lien vidéo Youtube'),
+            AssociationField::new('author')->setLabel('Auteur'),
         ];
     }
 
     public function configureCrud(Crud $crud): Crud
     {
+
         return $crud;
     }
 

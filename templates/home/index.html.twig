@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{%  block carousel %}{% endblock %}
+{% block carousel %}{% endblock %}
 
 {% block content %}
     <h1>Les astuces</h1>
@@ -13,12 +13,13 @@
                 <div class="card mb-3">
                     <a href="{{ path('trick', { 'slug' : trick.slug }) }}">
                         <div class="trick-illustration">
-{#                            <img class="img-fluid" src="uploads/{{ trick.illustration }}" alt="{{ trick.name }}">#}
+                            <img class="img-fluid" src="uploads/{{ trick.illustration }}" alt="{{ trick.name }}">
                         </div>
                     </a>
                     <div class="card-header">
                         <div>
-                            <a href="{{ path('trick', { 'slug' : trick.slug }) }}"><h2 class="text-uppercase">{{ trick.name }}</h2></a>
+                            <a href="{{ path('trick', { 'slug' : trick.slug }) }}"><h2
+                                        class="text-uppercase">{{ trick.name }}</h2></a>
                             <a href="#"><h3 class="small">{{ trick.subtitle }}</h3></a>
                         </div>
                         <div class="small">

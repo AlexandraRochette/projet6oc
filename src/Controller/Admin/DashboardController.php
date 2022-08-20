@@ -6,24 +6,47 @@ use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('account');
-        }
-        return parent::index();
+        $lastTrick = $this->entityManager->getRepository(Trick::class)->findOneBy([], ['id' => 'desc']);
+        $lastComment = $this->entityManager->getRepository(Comment::class)->findOneBy([], ['id' => 'desc']);
+        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id' => 'desc']);
+        $tricks = $this->entityManager->getRepository(Trick::class)->count([]);
+        $comments = $this->entityManager->getRepository(Comment::class)->count([]);
+        $users = $this->entityManager->getRepository(User::class)->count([]);
+
+
+        return $this->render('admin/dashboard.html.twig', [
+            'dashboard_controller_filepath' => (new \ReflectionClass(static::class))->getFileName(),
+            'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
+            'tricks' => $tricks,
+            'comments' => $comments,
+            'users' => $users,
+            'lastTrick' => $lastTrick,
+            'lastComment' => $lastComment,
+            'lastUser' => $lastUser,
+        ]);
     }
 
     public function configureDashboard(): Dashboard

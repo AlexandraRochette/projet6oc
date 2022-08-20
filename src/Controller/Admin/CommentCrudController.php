@@ -23,9 +23,8 @@ class CommentCrudController extends AbstractCrudController
             //IdField::new('id'),
             //TextField::new('title'),
             TextEditorField::new('content'),
-            AssociationField::new('author')->setFormTypeOptions([
-                'by_reference' => false,
-            ])
+            AssociationField::new('author')->setLabel('Auteur'),
+
         ];
     }
 

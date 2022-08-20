@@ -1,0 +1,48 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+ 
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <h2 class="card-header">Tricks</h2>
+                    <div class="card-body">
+                        <p class="card-text">Il y a {{ tricks }} tricks publiés</p>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController')}}" class="btn btn-info">Gérer les tricks</a>
+                        <hr>
+                        <h3>Dernier trick publié : </h3>
+                        <h4>{{ lastTrick.name }}</h4>
+                        <p>{{ lastTrick.description | raw }}</p>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController').setAction('edit').setEntityId(lastTrick.id) }}" class="btn btn-info">Editer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <h2 class="card-header">Commentaires</h2>
+                    <div class="card-body">
+                        <p class="card-text">Il y a {{ comments }} commentaires publiés</p>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\CommentCrudController')}}" class="btn btn-warning">Gérer les commentaires</a>
+                        <hr>
+                        <h3>Dernier commentaire publié : </h3>
+                        <h4> par {{ lastComment.author }}</h4>
+                        <p>{{ lastComment.content | raw }}</p>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController').setAction('edit').setEntityId(lastComment.id) }}" class="btn btn-warning">Editer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <h2 class="card-header">Utilisateurs</h2>
+                    <div class="card-body">
+                        <p class="card-text">Il y a {{ users }} utilisateurs enregistrés</p>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController')}}" class="btn btn-success">Gérer les utilisateurs</a>                        <hr>
+                        <h3>Dernier Utilisateur enregistré : </h3>
+                        <h4>{{ lastUser.fullName }}</h4>
+                        <a href="{{ ea_url().setController('App\\Controller\\Admin\\TrickCrudController').setAction('edit').setEntityId(lastUser.id) }}" class="btn btn-success">Editer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -6,12 +6,12 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
- * @Vich\Uploadable
+ * @Vich\Uploadable()
  */
 class Trick
 {
@@ -54,9 +54,17 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity=Medias::class, mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
-    private $medias;
+    private $images;
+
+    /**
+     * @Assert\All({
+     *     @Assert\Image(mimeTypes="image/jpeg")
+     * })
+     */
+    private $imageFiles;
+
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -64,7 +72,7 @@ class Trick
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $modifyAt;
 
@@ -74,9 +82,22 @@ class Trick
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $illustration;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $video;
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,23 +195,6 @@ class Trick
         return $this;
     }
 
-    public function getMedias(): ?Medias
-    {
-        return $this->medias;
-    }
-
-    public function setMedias(Medias $medias): self
-    {
-        // set the owning side of the relation if necessary
-        if ($medias->getTrick() !== $this) {
-            $medias->setTrick($this);
-        }
-
-        $this->medias = $medias;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -223,6 +227,90 @@ class Trick
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFiles()
+    {
+        return $this->imageFiles;
+    }
+
+    /**
+     * @param mixed $imageFiles
+     * @return Trick
+     */
+    public function setImageFiles($imageFiles): self
+    {
+
+
+        //dd($imageFiles);
+
+        foreach ($imageFiles as $file)
+        {
+            $image = new Image();
+            $image->setImageFile($file);
+            $this->addImage($image);
+        }
+        $this->imageFiles = $imageFiles;
+
+        return $this;
+    }
+
+    public function getIllustration(): ?string
+    {
+        return $this->illustration;
+    }
+
+    public function setIllustration(string $illustration): self
+    {
+        $this->illustration = $illustration;
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): self
+    {
+        $this->video = $video;
 
         return $this;
     }

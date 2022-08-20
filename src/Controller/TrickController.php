@@ -40,6 +40,7 @@ class TrickController extends AbstractController
     public function show($slug, Request $request): Response
     {
         $trick = $this->entityManager->getRepository(Trick::class)->findOneBy(['slug' => $slug]);
+
         $author = $this->getUser();
 
         $notification = null;
